@@ -1,0 +1,297 @@
+﻿<Window x:Class="WpfWeather.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Weather" Height="450" Width="800"
+        DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown">
+    <Border CornerRadius="12">
+        <Border.Background>
+            <ImageBrush ImageSource="/Assets/Weather1.jpeg"/>
+        </Border.Background>
+        <Border CornerRadius="10"
+            BorderThickness="1"
+                Opacity="0.85">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#462AD8"/>
+                    <GradientStop Color="#DA34AE"/>
+                    <GradientStop Color="#8A16C1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Current Weather"
+                               Foreground="LightGreen"
+                               FontSize="15"
+                               FontFamily="Montserrat"
+                               Grid.Column="0"
+                               HorizontalAlignment="Left"
+                               Margin="10,0,0,0"
+                               />
+                    <Button x:Name="btnMinimize"
+                            BorderThickness="0"
+                            Content="-"
+                            Foreground="White"
+                            FontFamily="Motserrat"
+                            Cursor="Hand"
+                            Grid.Column="1"
+                            Click="btnMinimize_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#278BEF"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="DarkBlue"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="18" Height="18"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button x:Name="btnClose"
+                            BorderThickness="0"
+                            Content="X"
+                            Foreground="White"
+                            FontSize="12"
+                            FontFamily="Motserrat"
+                            Cursor="Hand"
+                            Grid.Column="2"
+                            Click="btnClose_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#DA34AE"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="DarkRed"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="18" Height="18"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="City:"
+                               Foreground="Black" 
+                               HorizontalAlignment="Left" 
+                               Grid.Column="1"
+                               FontSize="25"/>
+                    <TextBox Text="{Binding CityName}"
+                             Grid.ColumnSpan="3"
+                             FontSize="20"
+                             Grid.Column="1" 
+                             Padding="60,15,0,0"
+                             Margin="70,0,0,0"
+                             Height="50"
+                             BorderBrush="black"
+                             BorderThickness="0,0,0,3"
+                             
+                             VerticalAlignment="Center"
+                             FontFamily="Montserrat">
+                        <TextBox.Background>
+                            <ImageBrush ImageSource="/Assets/LocationIcon.png"
+                                        Stretch="Uniform"
+                                        AlignmentX="Left"/>
+                        </TextBox.Background>
+                    </TextBox>
+                    <Button Content="Get Weather" 
+                            Command="{Binding GetWeatherCommand}" 
+                            Grid.Column="4" Grid.ColumnSpan="2">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="GreenYellow"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#28AEED"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Height="45" Width="200"
+                                        CornerRadius="20"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <TextBlock Text="Temperature:" 
+                               FontSize="20"
+                               Grid.Row="1"  
+                               Grid.Column="1"
+                               Foreground="Black" 
+                               HorizontalAlignment="Left" 
+                               Margin="15,0,0,0" />
+                    <TextBlock Text="Feels Like:" 
+                               FontSize="20"
+                               Grid.Row="2"
+                               Grid.Column="1"
+                               Foreground="Black" 
+                               HorizontalAlignment="Left" 
+                               Margin="15,0,0,0" />
+                    <TextBlock Text="Humadity:" 
+                               FontSize="20"
+                               Grid.Row="3"
+                               Grid.Column="1"
+                               Foreground="Black" 
+                               HorizontalAlignment="Left" 
+                               Margin="15,0,0,0" />
+                    <TextBlock Text="Min:Temp" 
+                               FontSize="20"
+                               Grid.Row="4"
+                               Grid.Column="1"
+                               Foreground="Black" 
+                               HorizontalAlignment="Left" 
+                               Margin="15,0,0,0" />
+                    <TextBlock Text="Country:" 
+                               FontSize="20"
+                               Grid.Row="1"
+                               Grid.Column="3"
+                               Foreground="Black" 
+                               HorizontalAlignment="Left" 
+                               Margin="15,0,0,0" />
+                    <TextBlock Text="Wind Speed:" 
+                               Grid.Row="2"
+                               Grid.Column="3"
+                               FontSize="20"                        
+                               Foreground="Black"  
+                               HorizontalAlignment="Left" 
+                               Margin="15,0,0,0"/>
+                    <TextBlock Text="Clouds:"
+                               Grid.Row="3"
+                               Grid.Column="3"
+                               FontSize="20"                        
+                               Foreground="Black" 
+                               HorizontalAlignment="Left" 
+                               Margin="15,0,0,0"/>
+                    <TextBlock Text="Max Temp:"
+                               Grid.Row="4"
+                               Grid.Column="3"
+                               FontSize="20"                        
+                               Foreground="Black" 
+                               HorizontalAlignment="Left" 
+                               Margin="15,0,0,0"/>
+
+                    <Border Grid.Row="1" Grid.Column="2"
+                              BorderBrush="Black"
+                               BorderThickness="0,0,0,1"
+                            Margin="20,0,20,12"
+                            Padding="0,20,0,0">
+                        <TextBlock Text="{Binding Weather.main.temp}" 
+                               Grid.Row="2" Grid.Column="2" />
+                    </Border>
+                    <Border Grid.Row="2" Grid.Column="2"
+                               BorderBrush="Black"
+                               BorderThickness="0,0,0,1"
+                            Margin="20,0,20,12"
+                            Padding="0,20,0,0">
+                        <TextBlock Text="{Binding Weather.main.feels_like}" 
+                               Grid.Row="3" Grid.Column="2"/>
+                    </Border>
+                    <Border Grid.Row="3" Grid.Column="2"
+                              BorderBrush="Black"
+                               BorderThickness="0,0,0,1"
+                            Margin="20,0,20,12"
+                            Padding="0,20,0,0">
+                        <TextBlock Text="{Binding Weather.main.humidity}" 
+                               Grid.Row="4" Grid.Column="2"/>
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="2"
+                              BorderBrush="Black"
+                               BorderThickness="0,0,0,1"
+                            Margin="20,0,20,12"
+                            Padding="0,20,0,0">
+                        <TextBlock Text="{Binding Weather.main.temp_min}" 
+                               Grid.Row="2" Grid.Column="2"/>
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="4"
+                               BorderBrush="Black"
+                               BorderThickness="0,0,0,1"
+                            Margin="20,0,20,12"
+                            Padding="0,20,0,0">
+                        <TextBlock Text="{Binding Weather.sys.country}"/>
+                    </Border>
+                    <Border Grid.Row="2" Grid.Column="4"
+                               BorderBrush="Black"
+                               BorderThickness="0,0,0,1"
+                            Margin="20,0,20,12"
+                            Padding="0,20,0,0">
+                        <TextBlock Text="{Binding Weather.wind.speed}" 
+                               Grid.Row="3" Grid.Column="4"/>
+                    </Border>
+                    <Border Grid.Row="3" Grid.Column="4"
+                              BorderBrush="Black"
+                               BorderThickness="0,0,0,1"
+                            Margin="20,0,20,12"
+                            Padding="0,20,0,0">
+                        <TextBlock Text="{Binding Weather.clouds.all}" 
+                               Grid.Row="4" Grid.Column="4"/>
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="4"
+                               BorderBrush="Black"
+                               BorderThickness="0,0,0,1"
+                            Margin="20,0,20,12"
+                            Padding="0,20,0,0">
+                        <TextBlock Text="{Binding Weather.main.temp_max}" 
+                               Grid.Row="2" Grid.Column="2" />
+                    </Border>
+
+                </Grid>
+            </Grid>
+        </Border>
+    </Border>
+
+</Window>
